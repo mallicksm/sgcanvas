@@ -6,27 +6,28 @@
 
 .global start
 .type start, "function"
-start:
+
 // Clear registers
 // ---------------
-MOV R0, #0
-MOV R1, #0
+start:
+   mov r0, #0
+   mov r1, #0
 // ------------------------------------------------------------
 // Main of your bare-metal software
 // ------------------------------------------------------------
 main:
-LDR R1, =print_hello
-BL semihost_print
-// Semihosting exit
-MOV R0, #SYS_EXIT
-SVC #SH_TRAP_INST_A32
+   ldr r1, =print_hello
+   bl semihost_print
+   // Semihosting exit
+   mov r0, #SYS_EXIT
+   svc #SH_TRAP_INST_A32
 // ------------------------------------------------------------
 // Semihost call
 // ------------------------------------------------------------
 semihost_print:
-MOV R0, #SYS_WRITE0
-SVC #SH_TRAP_INST_A32
-BX LR
+   mov r0, #SYS_WRITE0
+   svc #SH_TRAP_INST_A32
+   bx lr
 // ------------------------------------------------------------
 // String literals
 // ------------------------------------------------------------
