@@ -5,16 +5,18 @@ FM_TOOLS := $(TOOLS)/fm/FastModelsTools_11.23
 # ARM License
 export ARMLMD_LICENSE_FILE := 8224@license01
 export ARM_PRODUCT_DEF := /opt/tools/arm/developmentstudio-2020.1-1/sw/ARMCompiler5.06u7/sw/mappings/gold.elmap
+
 # FM Variables
 export MAXCORE_HOME := $(FM_TOOLS)
 export PVLIB_HOME := $(FM_PORTFOLIO)
 export SYSTEMC_HOME := $(TOOLS)/fm/SystemC/Accellera/SystemC
 #export IRIS_HOME := ${FM_PORTFOLIO}/Iris
 #export PYTHON_PATH := ${FM_PORTFOLIO}/lib/python2.7:${FM_PORTFOLIO}/Iris/Python
+
 #FM PATH
 export PATH := $(TOOLS)/gcc7.3.0/bin:$(PATH)
 export PATH := $(FM_TOOLS)/bin:$(PATH)
-export LD_LIBRARY_PATH := $(TOOLS)/ads/sw/models/bin:$(LD_LIBRARY_PATH)
+export LD_LIBRARY_PATH := $(TOOLS)/gcc7.3.0/lib64:$(LD_LIBRARY_PATH)
 export LD_LIBRARY_PATH := $(FM_TOOLS)/lib:$(LD_LIBRARY_PATH)
 
 ARM_COMPILER := $(shell suite_exec --help|grep '^Arm Compiler.*6')
