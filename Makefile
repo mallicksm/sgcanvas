@@ -22,12 +22,11 @@ MK_PRE := suite_exec -t "${ARM_COMPILER}"
 
 ifeq ($(M), a78)
 all: build_a78 compile_a78 run
+canvas: ; sgcanvas example_a78.sgproj
 else
 all: build_r5 compile_r5 run
+canvas: ; sgcanvas example_r5.sgproj
 endif
-
-canvas: 
-	sgcanvas
 
 build_r5:
 	simgen -p example_r5.sgproj -b
