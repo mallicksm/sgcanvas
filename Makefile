@@ -17,27 +17,29 @@ export PATH := $(TOOLS)/gcc7.3.0/bin:$(PATH)
 export PATH := $(MAXCORE_HOME)/bin:$(PATH)
 export LD_LIBRARY_PATH := $(TOOLS)/gcc7.3.0/lib64:$(LD_LIBRARY_PATH)
 
+# ARM Compiler setup
 ARM_COMPILER := $(shell suite_exec --help|grep '^Arm Compiler.*6')
 MK_PRE := suite_exec -t "${ARM_COMPILER}"
 
+.PHONY: env sgcanvas
 ifeq ($(M), a78)
 all: build_a78 compile_a78 run
-canvas: ; sgcanvas example_a78.sgproj
+sgcanvas: ; sgcanvas example_a78.sgproj
 else
 all: build_r5 compile_r5 run
-canvas: ; sgcanvas example_r5.sgproj
+sgcanvas: ; sgcanvas example_r5.sgproj
 endif
 
+env:
+	@echo "Note: .. type exit to return"
+	@suite_exec -t "${ARM_COMPILER}" bash
 build_r5:
 	simgen -p example_r5.sgproj -b
-
 build_a78:
 	simgen -p example_a78.sgproj -b
-
 compile_a78:
 	$(MK_PRE) armclang -c --target=aarch64-arm-none-eabi -march=armv8.1-a startup_a78.S
 	$(MK_PRE) armlink --ro-base=0x80000000 startup_a78.o -o image.axf --entry=start64
-
 compile_r5:
 	$(MK_PRE) armclang -c --target=arm-arm-none-eabi -march=armv8r startup_r5.S
 	$(MK_PRE) armlink --ro-base=0x8000 startup_r5.o -o image.axf --entry=start
